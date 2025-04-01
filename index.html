@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Demo</title>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent actual form submission
+            
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let gender = document.querySelector('input[name="gender"]:checked')?.value;
+            let interests = [...document.querySelectorAll('input[name="interest"]:checked')].map(e => e.value);
+            let country = document.getElementById("country").value;
+            
+            console.log("Name:", name);
+            console.log("Email:", email);
+            console.log("Gender:", gender);
+            console.log("Interests:", interests.join(", "));
+            console.log("Country:", country);
+            
+            document.getElementById("output").innerHTML = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Gender:</strong> ${gender || 'Not selected'}</p>
+                <p><strong>Interests:</strong> ${interests.length ? interests.join(", ") : 'None'}</p>
+                <p><strong>Country:</strong> ${country}</p>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <h2>Demo Form</h2>
+    <form onsubmit="handleSubmit(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label>Gender:</label>
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female
+        <input type="radio" name="gender" value="Other"> Other<br><br>
+        
+        <label>Interests:</label>
+        <input type="checkbox" name="interest" value="Sports"> Sports
+        <input type="checkbox" name="interest" value="Music"> Music
+        <input type="checkbox" name="interest" value="Reading"> Reading<br><br>
+        
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="UK">UK</option>
+        </select><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+    
+    <h3>Form Output:</h3>
+    <div id="output"></div>
+</body>
+</html>
